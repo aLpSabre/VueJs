@@ -7,7 +7,11 @@ const app = Vue.createApp({
 
     }
   },
-
+  computed:{
+    buttonText(){
+      return this.visibility ? "Show the List" : "Hide the List";
+    }
+  },
   methods: {
     addTask() {
       this.tasks.push(this.enteredInput);
