@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary"
+    :class="{'navbar-dark bg-dark': useDark, 'navbar-light bg-light': !useDark}">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li v-for="(page,index) in pages" class="nav-item" :key="index">
+              <a
+                class="nav-link"
+                :class="{active : activePage == index}"
+                aria-current="page"
+                v-bind:href="page.link.url"
+                :title="`This link goes to ${page.link.text}` "
+                v-on:click.prevent="activePage=index"
+                >{{page.link.text}}</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <form action="">
+        <button class="btn btn-primary"
+        @click.prevent="useDark = !useDark">Toggle</button>
+      </form>
+    </nav>
+    <div id="container" class="container">
+      <h1 class="h2">{{pages[activePage].pageTitle}}</h1>
+      <p>{{pages[activePage].content}}</p>
+    </div>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            activePage:0,
+            useDark:true,
+            pages: [
+              {
+                link: { text: "Home", url: "index.html" },
+                pageTitle: "VueJs",
+                content: "it is just the beginning",
+              },
+              {
+                link: { text: "About", url: "about.html" },
+                pageTitle: "About",
+                content: "about",
+              },
+              {
+                link: { text: "Contact", url: "contact.html" },
+                pageTitle: "contact",
+                content: "contact",
+              },
+            ],
+          };
+        },
+      }).mount("body");
+    </script>
+  </body>
+</html>
