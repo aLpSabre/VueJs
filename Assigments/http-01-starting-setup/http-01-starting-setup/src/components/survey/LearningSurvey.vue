@@ -2,7 +2,12 @@
   <section>
     <base-card>
       <h2>How was you learning experience?</h2>
-      <form @submit.prevent="submitSurvey();emittedFunc();">
+      <form
+        @submit.prevent="
+          submitSurvey();
+          emittedFunc();
+        "
+      >
         <div class="form-control">
           <label for="name">Your Name</label>
           <input
@@ -57,6 +62,7 @@
 
 <script>
 export default {
+
   data() {
     return {
       enteredName: '',
@@ -64,6 +70,7 @@ export default {
       invalidInput: false,
     };
   },
+  inject: ['changeIsPosted'],
   emits: ['survey-submit'],
   methods: {
     submitSurvey() {
@@ -72,8 +79,7 @@ export default {
         return;
       }
       this.invalidInput = false;
-
-   
+/*       this.changeIsPosted(); */
       fetch('https://http-fce99-default-rtdb.firebaseio.com/surveys.json', {
         method: 'POST',
         headers: {
@@ -84,6 +90,11 @@ export default {
           name: this.enteredName,
           rating: this.chosenRating,
         }),
+      }).then((res) => {
+        console.log('posted');
+        console.log('res posted', res);
+        res.ok && this.changeIsPosted();
+        /*         console.log("posted",this.isPosted); */
       });
       this.enteredName = '';
       this.chosenRating = null;
@@ -95,9 +106,9 @@ export default {
         this.invalidInput = false;
       }
     },
-    emittedFunc(){
+    emittedFunc() {
       this.$emit('survey-submit');
-    }
+    },
   },
 };
 </script>

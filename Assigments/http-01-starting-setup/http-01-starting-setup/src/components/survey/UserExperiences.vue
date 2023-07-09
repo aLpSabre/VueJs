@@ -5,7 +5,7 @@
       <div>
         <base-button>Load Submitted Experiences</base-button>
       </div>
-      <ul v-if="results && results.length">
+      <ul v-if="isLoading">
         <survey-result
           v-for="result in results"
           :key="result.id"
@@ -17,15 +17,14 @@
     </base-card>
   </section>
 </template>
-
+<!-- v-if="isLoading &&results && results.length"> -->
 <script>
 import SurveyResult from './SurveyResult.vue';
 
 export default {
-  props:["results"],
+  props:["results","isLoading"],
   data() {
     return {
-     
     };
   },
   watch:{
