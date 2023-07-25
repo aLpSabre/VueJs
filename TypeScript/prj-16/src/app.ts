@@ -29,9 +29,11 @@ class Project {
 
 // Project State Management
 //! So the generic is an arg that you can pass the type to ensure to get array of exact type 
+//! void means that we dont care about the return type it could be any
 type Listener<T> = (items: T[]) => void;
 //! So the generic is an arg that you can pass the type to ensure to get array of exact type 
 //? classes doesnt have to have constructors always
+//! Listener is the type listeners is the array of listener functions which get only project arrays and doesnt care about the return
 class State<T> {
   protected listeners: Listener<T>[] = [];
 
